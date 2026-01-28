@@ -10,7 +10,26 @@ from deepdrivemd.utils import PathLike
 
 def glob_file_from_dirs(dirs: List[str], pattern: str) -> List[str]:
     """Return a list of all items matching `pattern` in multiple `dirs`."""
-    return [next(Path(d).glob(pattern)).as_posix() for d in dirs]
+    missing = []
+    files = []
+    for d in dirs:
+        p = Path(d)
+        if not p.exists() or not p.is_dir():
+            missing.append(f"{d} (not a directory)")
+            continue
+        it = p.glob(pattern)
+        fp = next(it, None)
+        if fp is None:
+            missing.append(d)
+        else:
+            files.append(fp.as_posix())
+    if missing:
+        raise ValueError(
+            "No files matching pattern '{}' found in directories: {}".format(
+                pattern, ", ".join(missing)
+            )
+        )
+    return files
 
 
 class Stage_API:
