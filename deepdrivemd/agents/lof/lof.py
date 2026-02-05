@@ -27,16 +27,14 @@ def get_representation(
     comm: Optional[Any] = None,
 ) -> "npt.ArrayLike":
     if model_type == "AAE3d":
-        from deepdrivemd.models.aae.inference import generate_embeddings
+        from deepdrivemd.models.keras_cvae.inference import generate_embeddings
 
         # Generate embeddings with a distributed forward pass
         embeddings = generate_embeddings(
             model_cfg_path,
             h5_file,
             model_weights_path,
-            inference_batch_size,
-            gpu_id,
-            comm,
+            inference_batch_size
         )
     elif model_type == "keras_cvae":
         from deepdrivemd.models.keras_cvae.inference import generate_embeddings  # type: ignore[no-redef]
@@ -45,7 +43,7 @@ def get_representation(
             model_cfg_path,
             h5_file,
             model_weights_path,
-            inference_batch_size,
+            inference_batch_size
         )
     else:
         raise ValueError(f"model_type {cfg.model_type} not supported")

@@ -1,3 +1,4 @@
+import os
 from typing import TYPE_CHECKING, Dict, List
 
 if TYPE_CHECKING:
@@ -32,7 +33,9 @@ def concatenate_last_n_h5(cfg: BasicAggegation) -> None:  # noqa
         print(f"Collected {len(files)} h5 files.")
 
     # Open output file
-    fout = h5py.File(cfg.output_path, "w", libver="latest")
+    # FIX: Append filename to the directory path
+    output_file = os.path.join(cfg.output_path, "aggregated_data.h5")
+    fout = h5py.File(output_file, "w", libver="latest")
 
     # Initialize data buffers
     data: Dict[str, List["npt.ArrayLike"]] = {x: [] for x in fields}

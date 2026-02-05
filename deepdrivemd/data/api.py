@@ -430,6 +430,17 @@ class DeepDriveMD_API:
         u = MDAnalysis.Universe(
             str(input_pdb_file), str(traj_file), in_memory=in_memory
         )
+
+        # --- ADDED FIX: HANDLE GLOBAL VS LOCAL INDEX MISMATCH - previously would take frame 114 out of 20 bc multiple traj counted continously ---
+        traj_len = len(u.trajectory)
+        if frame >= traj_len:
+            print(f"WARNING: Requested frame {frame} exceeds trajectory length {traj_len}.")
+            # Use modulo to map global index to local frame
+            new_frame = frame % traj_len
+            print(f"         Mapping {frame} -> {new_frame} (using modulo).")
+            frame = new_frame
+        # --------------------------------------------------
+
         u.trajectory[frame]
         PDB = MDAnalysis.Writer(str(output_pdb_file))
         PDB.write(u.atoms)

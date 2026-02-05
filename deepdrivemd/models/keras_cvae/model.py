@@ -39,8 +39,8 @@ class LossHistory(Callback):  # type: ignore[misc]
         self.val_losses: List[float] = []
 
     def on_epoch_end(self, epoch: int, logs: Dict[str, float] = {}) -> None:
-        self.losses.append(logs["loss"])
-        self.val_losses.append(logs["val_loss"])
+        self.losses.append(logs.get("loss", 0.0))
+        self.val_losses.append(logs.get("val_loss", 0.0))
 
     def to_csv(self, path: PathLike) -> None:
         """Log loss values to a csv file."""
