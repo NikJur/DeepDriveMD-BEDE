@@ -39,7 +39,7 @@ sources/
 ├── DeepDriveMD-BEDE/       # This repository
 │   ├── bede_env_setup/     # Contains the .yml environment files
 │   └── bede_examples/      # Contains example run files
-│       ├── test/
+│       ├── data/
 │       ├── run_stage.sh
 │       ├── deepdrivemd_test.yaml
 │       └── deepdrivemd_test.sh
