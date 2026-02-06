@@ -20,7 +20,7 @@ git clone [https://github.com/NikJur/DeepDriveMD-BEDE.git](https://github.com/Ni
 # 2. Clone required dependencies
 git clone [https://github.com/braceal/molecules.git](https://github.com/braceal/molecules.git)
 git clone [https://github.com/braceal/MD-tools.git](https://github.com/braceal/MD-tools.git)
-'''
+```
 
 ## 📂 1. Directory Structure
 Ensure your source directory is organized as follows before proceeding:
@@ -48,7 +48,7 @@ conda env create -f bede_env_setup/environment_openmm_ppc64le.yml
 
 # 3. Keras (ML & Agent Stage - Python 3.6)
 conda env create -f bede_env_setup/environment_keras_ppc64le.yml
-'''
+```
 
 Step 2: Install Local Source Code
 You must install the local source packages in "editable" mode (-e) for both compute environments.
@@ -117,4 +117,4 @@ Submit via SLURM:
 
 ```bash
 sbatch bede_examples/deepdrivemd_v0_7.sh
-'''
+```
