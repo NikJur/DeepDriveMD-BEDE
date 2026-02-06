@@ -23,13 +23,15 @@ git clone [https://github.com/braceal/MD-tools.git](https://github.com/braceal/M
 ```
 
 ## 📂 1. Directory Structure
-Ensure your source directory is organized as follows before proceeding:
+Ensure your source directory is organised as follows before proceeding:
 
+```text
 sources/
 ├── DeepDriveMD-BEDE/   # This repository
 │   ├── bede_env_setup/     # Contains the .yml environment files
 ├── molecules/              # Required dependency
 └── MD-tools/               # Required dependency
+```
 
 ## 🐍 2. Environment Setup
 We use pre-configured YAML files located in DeepDriveMD-BEDE/bede_env_setup/ to create the three required environments.
