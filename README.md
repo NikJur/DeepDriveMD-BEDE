@@ -30,6 +30,15 @@ git clone https://github.com/braceal/molecules.git
 git clone https://github.com/braceal/MD-tools.git
 ```
 
+TO ADD STILL:
+mkdir -p ppc64le
+cd ppc64le
+
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-ppc64le.sh
+
+bash Miniforge3-Linux-ppc64le.sh
+source /nobackup/projects/<project_code>/<user_name>/ppc64le/miniconda/etc/profile.d/conda.sh
+
 ## 📂 1. Directory Structure
 
 Ensure your source directory is organised as follows before proceeding:
