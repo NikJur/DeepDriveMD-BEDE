@@ -23,12 +23,17 @@ git clone [https://github.com/braceal/MD-tools.git](https://github.com/braceal/M
 ```
 
 ## 📂 1. Directory Structure
+
 Ensure your source directory is organised as follows before proceeding:
 
 ```text
 sources/
-├── DeepDriveMD-BEDE/   # This repository
+├── DeepDriveMD-BEDE/       # This repository
 │   ├── bede_env_setup/     # Contains the .yml environment files
+│   └── bede_examples/      # Contains example run files
+│       ├── run_stage.sh
+│       ├── deepdrivemd_test.yaml
+│       └── deepdrivemd_test.sh
 ├── molecules/              # Required dependency
 └── MD-tools/               # Required dependency
 ```
