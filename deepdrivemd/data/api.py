@@ -10,7 +10,26 @@ from deepdrivemd.utils import PathLike
 
 def glob_file_from_dirs(dirs: List[str], pattern: str) -> List[str]:
     """Return a list of all items matching `pattern` in multiple `dirs`."""
-    return [next(Path(d).glob(pattern)).as_posix() for d in dirs]
+    missing = []
+    files = []
+    for d in dirs:
+        p = Path(d)
+        if not p.exists() or not p.is_dir():
+            missing.append(f"{d} (not a directory)")
+            continue
+        it = p.glob(pattern)
+        fp = next(it, None)
+        if fp is None:
+            missing.append(d)
+        else:
+            files.append(fp.as_posix())
+    if missing:
+        raise ValueError(
+            "No files matching pattern '{}' found in directories: {}".format(
+                pattern, ", ".join(missing)
+            )
+        )
+    return files
 
 
 class Stage_API:
@@ -411,6 +430,17 @@ class DeepDriveMD_API:
         u = MDAnalysis.Universe(
             str(input_pdb_file), str(traj_file), in_memory=in_memory
         )
+
+        # --- ADDED FIX: HANDLE GLOBAL VS LOCAL INDEX MISMATCH - previously would take frame 114 out of 20 bc multiple traj counted continously ---
+        traj_len = len(u.trajectory)
+        if frame >= traj_len:
+            print(f"WARNING: Requested frame {frame} exceeds trajectory length {traj_len}.")
+            # Use modulo to map global index to local frame
+            new_frame = frame % traj_len
+            print(f"         Mapping {frame} -> {new_frame} (using modulo).")
+            frame = new_frame
+        # --------------------------------------------------
+
         u.trajectory[frame]
         PDB = MDAnalysis.Writer(str(output_pdb_file))
         PDB.write(u.atoms)

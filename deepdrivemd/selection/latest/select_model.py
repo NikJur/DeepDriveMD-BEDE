@@ -86,8 +86,12 @@ def latest_checkpoint(
     """
     task_dir = api.machine_learning_stage.task_dir()
     assert task_dir is not None
-    checkpoint_files = task_dir.joinpath(checkpoint_dir).glob(f"*{checkpoint_suffix}")
+    checkpoint_files = list(task_dir.joinpath(checkpoint_dir).glob(f"*{checkpoint_suffix}"))
     # Format: epoch-1-20200922-131947.pt, select latest epoch checkpoint
+    if not checkpoint_files:
+        raise FileNotFoundError(
+            f"No checkpoint files found in {checkpoint_dir} with suffix '{checkpoint_suffix}'"
+        )
     return max(checkpoint_files, key=lambda x: int(x.name.split("-")[1]))
 
 

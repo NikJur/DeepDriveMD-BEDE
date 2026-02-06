@@ -5,7 +5,10 @@ if TYPE_CHECKING:
     import numpy.typing as npt
 
 import numpy as np
-import torch  # type: ignore[import]
+try:
+    import torch
+except ImportError:
+    torch = None  # type: ignore[import]
 from molecules.ml.datasets import PointCloudDataset  # type: ignore[import]
 from molecules.ml.unsupervised.point_autoencoder import AAE3dHyperparams  # type: ignore[import]
 from molecules.ml.unsupervised.point_autoencoder.aae import Encoder  # type: ignore[import]

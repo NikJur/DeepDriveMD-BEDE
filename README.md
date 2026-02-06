@@ -1,198 +1,183 @@
-# DeepDriveMD-F (DeepDriveMD-pipeline)
+# DeepDriveMD on Bede (IBM PowerPC ppc64le)
 
-DeepDriveMD-F: Deep-Learning Driven Adaptive Molecular Simulations (file-based continual learning loop)
+This documentation details the setup required to run DeepDriveMD on the **Bede Supercomputer** (IBM PowerAC922, NVIDIA V100, PowerPC `ppc64le`).
 
-[![Documentation Status](https://readthedocs.org/projects/deepdrivemd-pipeline/badge/?version=latest)](https://deepdrivemd-pipeline.readthedocs.io/en/latest/?badge=latest)
+We solve the PowerPC dependency conflicts (TensorFlow vs PyTorch) using a **Hybrid Runtime** strategy with two separate compute environments hot-swapped at runtime.
 
-Details can be found in the [documentation](https://deepdrivemd-pipeline.readthedocs.io/en/latest/). For more information, please see our [website](https://deepdrivemd.github.io/).
+---
 
-## How to run
+## 0. Initial Setup & Cloning
 
-Running DeepDriveMD requires the use of virtual environment. At this point we distinguish different stage runs of DeepDriveMD using different virtual environments to alleviate package compatibility with associated dependencies across different stages.
+### 📍 Recommended Installation Path
+On Bede, it is highly recommended to install the source code in your project's `nobackup` directory to avoid storage quotas and ensure fast I/O performance.
 
-For instance, below is a list of Python versions used by different virtual environments:
-
-- RCT env: Python 3.7.8
-- OpenMM env: Python 3.7.9
-- pytorch (AAE) env: Python 3.7.9
-- keras-cvae (CVAE) & rapids-dbscan: Python 3.6.12
-
-### Setup
-
-#### Stage: molecular_dynamics
-
-1. Install `deepdrivemd` into a virtualenv with a Python virtual environment:
-
-```
-python3 -m venv env
-source env/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install -e .
+**Navigate to your project directory before cloning:**
+```bash
+cd /nobackup/projects/<project_code>/<user_name>/
 ```
 
-Or with a Conda virtual environment:
+First, create a `sources` directory and clone all required repositories into it.
 
-```
-. ~/miniconda3/etc/profile.d/conda.sh
-conda create -n deepdrivemd python=3.7.9
-conda activate deepdrivemd
-pip install --upgrade pip setuptools wheel
-conda install scipy (this step is needed if a failure of installing scipy is observed)
-pip install -e .
-```
+```bash
+mkdir -p sources
+cd sources
 
-2. Install OpenMM:
+# 1. Clone this repository
+git clone [https://github.com/NikJur/DeepDriveMD-BEDE.git](https://github.com/NikJur/DeepDriveMD-BEDE.git)
 
-- by source code (for Linux ppc64le, e.g., Summit)
-https://gist.github.com/lee212/4bbfe520c8003fbb91929731b8ea8a1e
-
-- by conda (for Linux x86\_64, e.g., PSC Bridges)
-```
-module load anaconda3
-module load cuda/9.2
-source /opt/packages/anaconda/anaconda3-5.2.0/etc/profile.d/conda.sh
-conda install -c omnia/label/cuda92 openmm
+# 2. Clone required dependencies
+git clone [https://github.com/braceal/molecules.git](https://github.com/braceal/molecules.git)
+git clone [https://github.com/braceal/MD-tools.git](https://github.com/braceal/MD-tools.git)
 ```
 
-3. In some places, DeepDriveMD relies on external libraries to configure MD simulations and import specific ML models.
+## 📂 1. Directory Structure
 
-For MD, install the `mdtools` package found here: https://github.com/braceal/MD-tools
+Ensure your source directory is organised as follows before proceeding:
 
-```
-git clone https://github.com/braceal/MD-tools.git
-pip install .
-```
-
-For ML (specifically the AAE model), install the `molecules` package found here: https://github.com/braceal/molecules/tree/main
-
-```
-git clone https://github.com/braceal/molecules.git
-pip install .
-```
-
-#### Stage: machine_learning
-
-1. Install the `deepdrivemd` virtual environment as above (`deepdrivemd` is needed in all the virtual environments since each task uses the DDMD_API to communicate with the outputs of other tasks).
-
-2. Install the `keras-CVAE` model with `rapidsai DBSCAN` package found here: https://www.ibm.com/docs/en/wmlce/1.6.2?topic=installing-mldl-frameworks
-
-```
-conda config --prepend channels https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
-conda install powerai-rapids
+```text
+sources/
+├── DeepDriveMD-BEDE/       # This repository
+│   ├── bede_env_setup/     # Contains the .yml environment files
+│   └── bede_examples/      # Contains example run files
+│       ├── data/
+│       ├── run_stage.sh
+│       ├── deepdrivemd_test.yaml
+│       └── deepdrivemd_test.sh
+├── molecules/              # Required dependency
+└── MD-tools/               # Required dependency
 ```
 
-3. Install packages `scikit-learn` and `h5py` version 2.10.0:
+## 🐍 2. Environment Setup
+We use pre-configured YAML files located in DeepDriveMD-BEDE/bede_env_setup/ to create the three required environments.
 
-```
-conda install scikit-learn h5py=2.10.0
-```
+Step 1: Create the Environments
+Run the following commands from the sources/DeepDriveMD-BEDE directory:
 
-4. Install the `tensorflow-gpu` package (need to compile with CUDA 10.2.89, not compatible with CUDA 10.1.243 and CUDA 11.1.1 or higher versions):
+```bash
+cd DeepDriveMD-BEDE
 
-```
-conda install tensorflow-gpu
-```
+# 1. Infrastructure (Database & Messaging)
+conda env create -f bede_env_setup/environment_infrastructuretools_ppc64le.yml
 
-### Generating a YAML input spec:
+# 2. OpenMM (Simulation Stage - Python 3.7)
+conda env create -f bede_env_setup/environment_openmm_ppc64le.yml
 
-First, run this command to get a _sample_ YAML config file:
-
-```
-python -m deepdrivemd.config
-```
-
-This will write a file named `deepdrivemd_template.yaml` which should be adapted for the experiment at hand. You should configure the `molecular_dynamics_stage`, `aggregation_stage`, `machine_learning_stage`, `model_selection_stage` and `agent_stage` sections to use the appropriate run commands and environment setups.
-
-### Running an experiment
-
-Then, launch an experiment with:
-
-```
-python -m deepdrivemd.deepdrivemd -c <experiment_config.yaml>
+# 3. Keras (ML & Agent Stage - Python 3.6)
+conda env create -f bede_env_setup/environment_keras_ppc64le.yml
 ```
 
-This experiment should be launched
+Step 2: Install Local Source Code
+You must install the local source packages in "editable" mode (-e) for both compute environments.
 
-### Note on input data
+A. For the OpenMM Environment:
+```bash
+conda activate ddmd_openmm
 
-The input PDB and topology files should have the following structure:
+# Install dependencies
+cd ../molecules && pip install -e .
+cd ../MD-tools && pip install -e .
 
-```
-ls data/sys*
-
-data/sys1:
-comp.pdb comp.top
-
-data/sys2:
-comp.pdb comp.top
-```
-Where the topology files are optional and only used when `molecular_dynamics_stage.task_config.solvent_type` is "explicit". Only one system directory is needed but an arbitrary number are supported. Also note that the system directory names are arbitrary. The path to the `data` directory should be passed into the config via `molecular_dynamics_stage.initial_pdb_dir`.
-
-# DeepDriveMD-S (Streaming asynchronous execution with ADIOS)
-
-The streaming version of DeepDriveMD uses the adios2 package.
-
-`adios2` is installed with spack:
-```
-spack install adios2 +python -mpi
+# Install Main Pipeline
+cd ../DeepDriveMD-BEDE && pip install -e .
 ```
 
-To use adios2 in python, one needs to load the corresponding module, for example, with
-```
-module load adios2
-```
-or
-```
-spack load adios2
-```
-and to set up `PYTHONPATH` to the corresponding subdirectory of the adios2 installation: 
-```
-export PYTHONPATH=<ADIOS2_dir>/lib/python<version>/site-packages/:$PYTHONPATH
+B. For the Keras Environment:
+```bash
+conda activate ddmd_keras
+
+# Install dependencies (Required for data structures)
+cd ../molecules && pip install -e .
+cd ../MD-tools && pip install -e .
+
+# Install Main Pipeline
+cd ../DeepDriveMD-BEDE && pip install -e .
 ```
 
-To make a small 30m, 12 simulation, 1 aggregator, test run of DeepDriveMD-S, cd into `test/` and run
-```
-make run1
-```
-To make a large 12h, 120 simulations, 10 aggregators run do
-```
-make run2
-```
-in DeepDriveMD-pipeline directory.
+## 🛠 3. Code Patches
+The following changes have been applied to this branch to support Bede:
 
-To watch how one of the aggregation files grows, do, for example
-```
-make watch1 d=3	
-```
-assuming that the experiment directory is `../Outputs/3`.
+1. Fix Agent Inference Engine (deepdrivemd/agents/lof/lof.py)
+Switched inference engine from aae (PyTorch) to keras_cvae (TensorFlow) to avoid cross-environment import errors.
 
-To watch what happens in one of the simulation task directory, do
-```
-make watch2 d=3
-```
+Import: Changed deepdrivemd.models.aae.inference to deepdrivemd.models.keras_cvae.inference.
 
-To watch the log for task 0014 (for run1 it corresponds to the outlier search log), do
-```
-make watch3 d=0014
-```
+Call: Removed extra arguments (gpu_id, comm) from the generate_embeddings() call.
 
-To clean after the run, do
-```
-make clean d=3
-```
+2. Fix Indexing Crash (deepdrivemd/data/api.py)
+Fixed a crash where the Agent selects a global frame index (e.g., 114) that exceeds the local trajectory length (e.g., 20).
+
+Patch: Added modulo arithmetic to write_pdb to wrap the index safely (frame = frame % traj_len).
+
+3. Fix Logging Crash (deepdrivemd/models/keras_cvae/model.py)
+Patch: Changed logs["loss"] to logs.get("loss", 0.0) to prevent crashes on missing metrics.
 
 
-The configuration files for the run, including `generate.py` that is used to create `config.yaml`, adios xml files for SST streams between simulations and aggregators and for BP files between aggregators and the downstream two components, are in a subdirectory of
-test/bba, for example, `test1_stream` (run1) and `lassen-keras-dbscan_stream` (run2). Yaml files are generated by running `./generate.py > config.yaml` or, if you prefer, you can edit `config.yaml` directly and not use `generate.py`.
+## 🚀 4. Execution
+We use a wrapper script to hot-swap environments based on the task type.
 
-To use multiple input files, put the corresponding pdb files into `cfg.initial_pdb_dir`. The simulation sorts pdb files from this directory and picks up the one corresponding to its task id modulo the number of pdb files.
+The Wrapper Script (bede_examples/run_stage.sh)
+This script automatically:
 
-# Contributing
+Unsets PYTHONPATH to prevent environment bleeding.
 
-Please report **bugs**, **feature requests**, or **questions** through the [Issue Tracker](https://github.com/DeepDriveMD/DeepDriveMD-pipeline/issues).
+Activates ddmd_openmm for simulation/aggregation.
 
-If you are looking to contribute, please see [`CONTRIBUTING.md`](https://github.com/DeepDriveMD/DeepDriveMD-pipeline/blob/main/CONTRIBUTING.md).
+Activates ddmd_keras for training/agents.
 
-# License
+Injects the current source directory into PYTHONPATH.
 
-DeepDriveMD has a MIT license, as seen in the [LICENSE](https://github.com/DeepDriveMD/DeepDriveMD-pipeline/blob/main/LICENSE.md) file.
+Running a Job
+Modify bede_examples/deepdrivemd_v0_7.sh with your project code.
+
+Submit via SLURM:
+
+```bash
+sbatch bede_examples/deepdrivemd_v0_7.sh
+```
+
+## 🧪 5. Test Your Installation
+
+We provide a test case in `bede_examples/` to verify that the hybrid environment switching and DeepDriveMD are working correctly.
+
+### Step 1: Configure the Example Scripts
+The example files contain a placeholder `USER_PROJECT_ROOT` that needs to be replaced with your actual installation path (e.g., `/nobackup/projects/<project_code>/<user_name>`).
+
+Run these commands to automatically configure the scripts for your user account:
+
+```bash
+cd sources/DeepDriveMD-BEDE/
+
+# 1. Get your current project root path (idielly, /nobackup/projects/<project_code>/<user_name>)
+# Note: This assumes you are currently inside the 'DeepDriveMD-BEDE' folder
+MY_ROOT=$(realpath ../..)
+
+# 2. Inject this path into the Config, Wrapper, and Launcher scripts
+sed -i "s|USER_PROJECT_ROOT_test|${MY_ROOT}|g" bede_examples/run_stage.sh
+sed -i "s|USER_PROJECT_ROOT|${MY_ROOT}|g" bede_examples/deepdrivemd_test.sh
+sed -i "s|USER_PROJECT_ROOT|${MY_ROOT}|g" bede_examples/deepdrivemd_test.yaml
+
+# 3. Verify the change (Optional)
+grep "experiment_directory" bede_examples/deepdrivemd_test.yaml
+# Should show: /nobackup/projects/<your_project>/<your_user>/...
+```
+
+Step 2: Submit the Test Job
+Once configured, submit the job to the GPU queue.
+
+```bash
+sbatch /bede_examples/deepdrivemd_test.sh
+```
+
+Step 3: Monitor Progress
+You can track the job's progress using the standard SLURM commands or by tailing the log file.
+
+```bash
+# Watch the log (Might take a while to start depending on how busy the cluster is)
+tail -f ddmd_run_*.err  # Ctrl + C to exit update
+```
+
+If successful, you will see the pipeline transition through:
+1. Molecular Dynamics: OpenMM running on GPU.
+2. Aggregation: Combining trajectories.
+3. Machine Learning: Keras training a CVAE.
+4. Agent: Selecting outliers for the next round.
