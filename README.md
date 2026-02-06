@@ -11,7 +11,7 @@ We solve the PowerPC dependency conflicts (TensorFlow vs PyTorch) using a **Hybr
 ### 📍 Recommended Installation Path
 On Bede, it is highly recommended to install the source code in your project's `nobackup` directory to avoid storage quotas and ensure fast I/O performance.
 
-**Navigate to your project directory before cloning (you might have to create you username folder):**
+**Navigate to your project directory before cloning (you might need to create your username folder):**
 ```bash
 cd /nobackup/projects/<project_code>/<user_name>/
 ```
@@ -23,11 +23,11 @@ mkdir -p sources
 cd sources
 
 # 1. Clone this repository
-git clone [https://github.com/NikJur/DeepDriveMD-BEDE.git](https://github.com/NikJur/DeepDriveMD-BEDE.git)
+git clone https://github.com/NikJur/DeepDriveMD-BEDE.git
 
 # 2. Clone required dependencies
-git clone [https://github.com/braceal/molecules.git](https://github.com/braceal/molecules.git)
-git clone [https://github.com/braceal/MD-tools.git](https://github.com/braceal/MD-tools.git)
+git clone https://github.com/braceal/molecules.git
+git clone https://github.com/braceal/MD-tools.git
 ```
 
 ## 📂 1. Directory Structure
