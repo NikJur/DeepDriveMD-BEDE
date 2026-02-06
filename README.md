@@ -70,6 +70,7 @@ conda env create \
   --prefix ./envs/infra_tools \
   -f ../DeepDriveMD-BEDE/bede_env_setup/environment_infrastructuretools_ppc64le.yml
 
+conda config --prepend channels https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
 # 2. OpenMM (Simulation Stage - Python 3.7)
 conda env create \
   --prefix ./envs/ddmd_openmm \
