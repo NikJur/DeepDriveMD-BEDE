@@ -134,3 +134,50 @@ Submit via SLURM:
 ```bash
 sbatch bede_examples/deepdrivemd_v0_7.sh
 ```
+
+## 🧪 5. Test Your Installation
+
+We provide a test case in `bede_examples/` to verify that the hybrid environment switching and DeepDriveMD are working correctly.
+
+### Step 1: Configure the Example Scripts
+The example files contain a placeholder `USER_PROJECT_ROOT` that needs to be replaced with your actual installation path (e.g., `/nobackup/projects/<project_code>/<user_name>`).
+
+Run these commands to automatically configure the scripts for your user account:
+
+```bash
+cd sources/DeepDriveMD-BEDE/
+
+# 1. Get your current project root path (idielly, /nobackup/projects/<project_code>/<user_name>)
+# Note: This assumes you are currently inside the 'DeepDriveMD-BEDE' folder
+MY_ROOT=$(realpath ../..)
+
+# 2. Inject this path into the Config, Wrapper, and Launcher scripts
+sed -i "s|USER_PROJECT_ROOT_test|${MY_ROOT}|g" bede_examples/run_stage.sh
+sed -i "s|USER_PROJECT_ROOT|${MY_ROOT}|g" bede_examples/deepdrivemd_test.sh
+sed -i "s|USER_PROJECT_ROOT|${MY_ROOT}|g" bede_examples/deepdrivemd_test.yaml
+
+# 3. Verify the change (Optional)
+grep "experiment_directory" bede_examples/deepdrivemd_test.yaml
+# Should show: /nobackup/projects/<your_project>/<your_user>/...
+```
+
+Step 2: Submit the Test Job
+Once configured, submit the job to the GPU queue.
+
+```bash
+sbatch /bede_examples/deepdrivemd_test.sh
+```
+
+Step 3: Monitor Progress
+You can track the job's progress using the standard SLURM commands or by tailing the log file.
+
+```bash
+# Watch the log (Might take a while to start depending on how busy the cluster is)
+tail -f ddmd_run_*.err  # Ctrl + C to exit update
+```
+
+If successful, you will see the pipeline transition through:
+1. Molecular Dynamics: OpenMM running on GPU.
+2. Aggregation: Combining trajectories.
+3. Machine Learning: Keras training a CVAE.
+4. Agent: Selecting outliers for the next round.
