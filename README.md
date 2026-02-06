@@ -35,8 +35,9 @@ mkdir -p ppc64le
 cd ppc64le
 
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-ppc64le.sh
-
+pwd (copy result)
 bash Miniforge3-Linux-ppc64le.sh
+enter: copied result from pwd/miniconda
 source /nobackup/projects/<project_code>/<user_name>/ppc64le/miniconda/etc/profile.d/conda.sh
 
 ## 📂 1. Directory Structure
