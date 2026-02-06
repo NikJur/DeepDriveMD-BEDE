@@ -64,16 +64,23 @@ Step 1: Create the Environments
 Run the following commands from the sources/DeepDriveMD-BEDE directory:
 
 ```bash
-cd ../DeepDriveMD-BEDE
 
 # 1. Infrastructure (Database & Messaging)
-conda env create -f bede_env_setup/environment_infrastructuretools_ppc64le.yml
+conda env create \
+  --prefix ./envs/infra_tools \
+  -f ../DeepDriveMD-BEDE/bede_env_setup/environment_infrastructuretools_ppc64le.yml
 
 # 2. OpenMM (Simulation Stage - Python 3.7)
-conda env create -f bede_env_setup/environment_openmm_ppc64le.yml
+conda env create \
+  --prefix ./envs/ddmd_openmm \
+  -f ../DeepDriveMD-BEDE/bede_env_setup/environment_openmm_ppc64le.yml
 
 # 3. Keras (ML & Agent Stage - Python 3.6)
-conda env create -f bede_env_setup/environment_keras_ppc64le.yml
+conda env create \
+  --prefix ./envs/ddmd_keras \
+  -f ../DeepDriveMD-BEDE/bede_env_setup/environment_keras_ppc64le.yml
+
+cd ../DeepDriveMD-BEDE
 ```
 
 Step 2: Install Local Source Code
