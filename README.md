@@ -79,7 +79,7 @@ cd ../MD-tools && pip install -e .
 cd ../DeepDriveMD-BEDE && pip install -e .
 ```
 
-## 🛠 3. Required Code Patches
+## 🛠 3. Code Patches
 The following changes have been applied to this branch to support Bede:
 
 1. Fix Agent Inference Engine (deepdrivemd/agents/lof/lof.py)
