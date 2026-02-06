@@ -8,6 +8,14 @@ We solve the PowerPC dependency conflicts (TensorFlow vs PyTorch) using a **Hybr
 
 ## 0. Initial Setup & Cloning
 
+### 📍 Recommended Installation Path
+On Bede, it is highly recommended to install the source code in your project's `nobackup` directory to avoid storage quotas and ensure fast I/O performance.
+
+**Navigate to your project directory before cloning:**
+```bash
+cd /nobackup/projects/<project_code>/<user_name>/
+```
+
 First, create a `sources` directory and clone all required repositories into it.
 
 ```bash
