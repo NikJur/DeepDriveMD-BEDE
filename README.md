@@ -64,7 +64,7 @@ Step 1: Create the Environments
 Run the following commands from the sources/DeepDriveMD-BEDE directory:
 
 ```bash
-cd DeepDriveMD-BEDE
+cd ../DeepDriveMD-BEDE
 
 # 1. Infrastructure (Database & Messaging)
 conda env create -f bede_env_setup/environment_infrastructuretools_ppc64le.yml
