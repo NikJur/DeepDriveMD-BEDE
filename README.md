@@ -118,6 +118,7 @@ B. For the Keras Environment:
 conda activate /nobackup/projects/<project_code>/<user_name>/sources/ppc64le/envs/ddmd_keras  #replace <project_code> and <user_name> with your own or adapt path if you installed the environments elsewhere
 
 # Install dependencies (Required for data structures)
+export SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
 cd ../molecules && pip install -e .
 cd ../MD-tools && pip install -e .
 
