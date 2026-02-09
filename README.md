@@ -105,6 +105,7 @@ A. For the OpenMM Environment:
 conda activate /nobackup/projects/<project_code>/<user_name>/sources/ppc64le/envs/ddmd_openmm  #replace <project_code> and <user_name> with your own or adapt path if you installed the environments elsewhere in the previous step
 
 # Install dependencies
+export SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
 cd ../molecules && pip install -e .
 cd ../MD-tools && pip install -e .
 
