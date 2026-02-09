@@ -30,15 +30,18 @@ git clone https://github.com/braceal/molecules.git
 git clone https://github.com/braceal/MD-tools.git
 ```
 
-TO ADD STILL:
+```bash
+#cTO ADD STILL:
 mkdir -p ppc64le
 cd ppc64le
 
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-ppc64le.sh
-pwd (copy result)
+pwd #(copy result)
 bash Miniforge3-Linux-ppc64le.sh
-enter: copied result from pwd/miniconda
- source ./miniconda/etc/profile.d/conda.sh
+#enter: copied result from pwd/miniconda
+
+source ./miniconda/etc/profile.d/conda.sh
+```
 
 ## 📂 1. Directory Structure
 
