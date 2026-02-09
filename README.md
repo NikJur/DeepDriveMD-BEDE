@@ -29,7 +29,7 @@ git clone https://github.com/braceal/molecules.git
 git clone https://github.com/braceal/MD-tools.git
 ```
 
-**Miniforge (ppc64le) installation**
+**Miniforge (ppc64le) installation**\
 Miniforge ppc64le provides compatible Conda packages and is required.
 
 ```bash
