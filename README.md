@@ -147,7 +147,7 @@ sed -i "s|USER_PROJECT_ROOT|${MY_ROOT}|g" bede_examples/deepdrivemd_test.yaml
 
 # 3. Verify the change (Optional)
 grep "experiment_directory" bede_examples/deepdrivemd_test.yaml
-# Should show: /nobackup/projects/<your_project>/<your_user>/...
+# Should show: /nobackup/projects/<your_project>/<your_user>/... in the first instance
 ```
 
 Step 2: Submit the Test Job
