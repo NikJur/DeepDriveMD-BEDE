@@ -1,5 +1,6 @@
-name: /nobackup/projects/bddur53/nikjur/ppc64le/envs/ddmd_openmm
+name: ddmd_openmm
 channels:
+  - https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
   - rapidsai
   - nvidia
   - conda-forge
