@@ -158,7 +158,7 @@ sbatch /bede_examples/deepdrivemd_test.sh
 ```
 
 Step 3: Monitor Progress\
-You can track the progress of the job using the standard SLURM commands (such as lqueue) or by tailing the log file.
+You can track the progress of the job using the standard SLURM commands (such as squeue) or by tailing the log file.
 
 ```bash
 # Watch the log (Might take a while to start depending on how busy the cluster is)
