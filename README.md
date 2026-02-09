@@ -95,7 +95,7 @@ You must install the local source packages in "editable" mode (-e) for both comp
 
 A. For the OpenMM Environment:
 ```bash
-conda activate ddmd_openmm
+conda activate ddmd_openmm  #Full paths if this fails are likely of /nobackup/projects/<project_code>/<user_name>/sources/ppc64le/envs/<enviroment_name e.g. ddmd_openmm>
 
 # Install dependencies
 cd ../molecules && pip install -e .
