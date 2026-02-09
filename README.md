@@ -126,49 +126,7 @@ cd ../MD-tools && pip install -e .
 cd ../DeepDriveMD-BEDE && pip install --no-deps -e .
 ```
 
-## 🛠 3. Code Patches
-The following changes have been applied to this branch to support Bede:
-
-1. Fix Agent Inference Engine (deepdrivemd/agents/lof/lof.py)
-Switched inference engine from aae (PyTorch) to keras_cvae (TensorFlow) to avoid cross-environment import errors.
-
-Import: Changed deepdrivemd.models.aae.inference to deepdrivemd.models.keras_cvae.inference.
-
-Call: Removed extra arguments (gpu_id, comm) from the generate_embeddings() call.
-
-2. Fix Indexing Crash (deepdrivemd/data/api.py)
-Fixed a crash where the Agent selects a global frame index (e.g., 114) that exceeds the local trajectory length (e.g., 20).
-
-Patch: Added modulo arithmetic to write_pdb to wrap the index safely (frame = frame % traj_len).
-
-3. Fix Logging Crash (deepdrivemd/models/keras_cvae/model.py)
-Patch: Changed logs["loss"] to logs.get("loss", 0.0) to prevent crashes on missing metrics.
-
-
-## 🚀 4. Execution
-We use a wrapper script to hot-swap environments based on the task type.
-
-The Wrapper Script (bede_examples/run_stage.sh)
-This script automatically:
-
-Unsets PYTHONPATH to prevent environment bleeding.
-
-Activates ddmd_openmm for simulation/aggregation.
-
-Activates ddmd_keras for training/agents.
-
-Injects the current source directory into PYTHONPATH.
-
-Running a Job
-Modify bede_examples/deepdrivemd_v0_7.sh with your project code.
-
-Submit via SLURM:
-
-```bash
-sbatch bede_examples/deepdrivemd_v0_7.sh
-```
-
-## 🧪 5. Test Your Installation
+## 🧪 3. Test Your Installation
 
 We provide a test case in `bede_examples/` to verify that the hybrid environment switching and DeepDriveMD are working correctly.
 
@@ -214,3 +172,44 @@ If successful, you will see the pipeline transition through:
 2. Aggregation: Combining trajectories.
 3. Machine Learning: Keras training a CVAE.
 4. Agent: Selecting outliers for the next round.
+
+## 🚀 4. Execution
+We use a wrapper script to hot-swap environments based on the task type.
+
+The Wrapper Script (bede_examples/run_stage.sh)
+This script automatically:
+
+Unsets PYTHONPATH to prevent environment bleeding.
+
+Activates ddmd_openmm for simulation/aggregation.
+
+Activates ddmd_keras for training/agents.
+
+Injects the current source directory into PYTHONPATH.
+
+Running a Job
+Modify bede_examples/deepdrivemd_v0_7.sh with your project code.
+
+Submit via SLURM:
+
+```bash
+sbatch bede_examples/deepdrivemd_v0_7.sh
+```
+
+## 🛠 5. Code Patches
+The following changes have been applied to this branch to support Bede:
+
+1. Fix Agent Inference Engine (deepdrivemd/agents/lof/lof.py)
+Switched inference engine from aae (PyTorch) to keras_cvae (TensorFlow) to avoid cross-environment import errors.
+
+Import: Changed deepdrivemd.models.aae.inference to deepdrivemd.models.keras_cvae.inference.
+
+Call: Removed extra arguments (gpu_id, comm) from the generate_embeddings() call.
+
+2. Fix Indexing Crash (deepdrivemd/data/api.py)
+Fixed a crash where the Agent selects a global frame index (e.g., 114) that exceeds the local trajectory length (e.g., 20).
+
+Patch: Added modulo arithmetic to write_pdb to wrap the index safely (frame = frame % traj_len).
+
+3. Fix Logging Crash (deepdrivemd/models/keras_cvae/model.py)
+Patch: Changed logs["loss"] to logs.get("loss", 0.0) to prevent crashes on missing metrics.
