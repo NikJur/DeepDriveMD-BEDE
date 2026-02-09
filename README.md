@@ -11,7 +11,7 @@ We solve the PowerPC dependency conflicts (TensorFlow vs PyTorch) using a **Hybr
 ### 📍 Recommended Installation Path
 On Bede, it is highly recommended to install the source code in your project's `nobackup` directory to avoid storage quotas and ensure fast I/O performance.
 
-**Navigate to your project directory before cloning:**
+**Navigate to your project directory before cloning (you might need to create your username folder):**
 ```bash
 cd /nobackup/projects/<project_code>/<user_name>/
 ```
@@ -23,12 +23,22 @@ mkdir -p sources
 cd sources
 
 # 1. Clone this repository
-git clone [https://github.com/NikJur/DeepDriveMD-BEDE.git](https://github.com/NikJur/DeepDriveMD-BEDE.git)
+git clone https://github.com/NikJur/DeepDriveMD-BEDE.git
 
 # 2. Clone required dependencies
-git clone [https://github.com/braceal/molecules.git](https://github.com/braceal/molecules.git)
-git clone [https://github.com/braceal/MD-tools.git](https://github.com/braceal/MD-tools.git)
+git clone https://github.com/braceal/molecules.git
+git clone https://github.com/braceal/MD-tools.git
 ```
+
+TO ADD STILL:
+mkdir -p ppc64le
+cd ppc64le
+
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-ppc64le.sh
+pwd (copy result)
+bash Miniforge3-Linux-ppc64le.sh
+enter: copied result from pwd/miniconda
+ source ./miniconda/etc/profile.d/conda.sh
 
 ## 📂 1. Directory Structure
 
@@ -54,16 +64,24 @@ Step 1: Create the Environments
 Run the following commands from the sources/DeepDriveMD-BEDE directory:
 
 ```bash
-cd DeepDriveMD-BEDE
 
 # 1. Infrastructure (Database & Messaging)
-conda env create -f bede_env_setup/environment_infrastructuretools_ppc64le.yml
+conda env create \
+  --prefix ./envs/infra_tools \
+  -f ../DeepDriveMD-BEDE/bede_env_setup/environment_infrastructuretools_ppc64le.yml
 
+conda config --prepend channels https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
 # 2. OpenMM (Simulation Stage - Python 3.7)
-conda env create -f bede_env_setup/environment_openmm_ppc64le.yml
+conda env create \
+  --prefix ./envs/ddmd_openmm \
+  -f ../DeepDriveMD-BEDE/bede_env_setup/environment_openmm_ppc64le.yml
 
 # 3. Keras (ML & Agent Stage - Python 3.6)
-conda env create -f bede_env_setup/environment_keras_ppc64le.yml
+conda env create \
+  --prefix ./envs/ddmd_keras \
+  -f ../DeepDriveMD-BEDE/bede_env_setup/environment_keras_ppc64le.yml
+
+cd ../DeepDriveMD-BEDE
 ```
 
 Step 2: Install Local Source Code
