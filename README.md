@@ -11,36 +11,43 @@ We solve the PowerPC dependency conflicts (TensorFlow vs PyTorch) using a **Hybr
 ### 📍 Recommended Installation Path
 On Bede, it is highly recommended to install the source code in your project's `nobackup` directory to avoid storage quotas and ensure fast I/O performance.
 
-**Navigate to your project directory before cloning (you might need to create your username folder):**
+**Navigate to your project directory before cloning the GitHub repository (create your user folder if needed):**
 ```bash
 cd /nobackup/projects/<project_code>/<user_name>/
 ```
 
-First, create a `sources` directory and clone all required repositories into it.
-
+**Create a `sources` directory and clone all required repositories into it:**
 ```bash
 mkdir -p sources
 cd sources
 
-# 1. Clone this repository
+# 1. DeepDriveMD BEDE fork
 git clone https://github.com/NikJur/DeepDriveMD-BEDE.git
 
-# 2. Clone required dependencies
+# 2. Required dependencies
 git clone https://github.com/braceal/molecules.git
 git clone https://github.com/braceal/MD-tools.git
 ```
 
+**Miniforge (ppc64le) installation**
+Miniforge ppc64le provides compatible Conda packages and is required.
+
 ```bash
-#cTO ADD STILL:
+# 1. Create architecture-specific directory:
 mkdir -p ppc64le
 cd ppc64le
 
-wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-ppc64le.sh
-pwd #(copy result)
-bash Miniforge3-Linux-ppc64le.sh
-#enter: copied result from pwd/miniconda
+# 2. Download Miniforge (ppc64le build):
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-ppc64le.sh # Required for CUDA, OpenMM, and ML stacks on BEDE
 
+# 3. Install Miniforge:
+bash Miniforge3-Linux-ppc64le.sh -b -p "$(pwd)/miniconda"
+
+# 4. Initialise Conda for this shell:
 source ./miniconda/etc/profile.d/conda.sh
+
+# 5. Verify installation:
+conda --version
 ```
 
 ## 📂 1. Directory Structure
