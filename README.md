@@ -136,9 +136,7 @@ The example files contain a placeholder `USER_PROJECT_ROOT` that needs to be rep
 Run these commands to automatically configure the scripts for your user account:
 
 ```bash
-cd sources/DeepDriveMD-BEDE/
-
-# 1. Get your current project root path (idielly, /nobackup/projects/<project_code>/<user_name>)
+# 1. Get your current project root path (ideally, /nobackup/projects/<project_code>/<user_name>)
 # Note: This assumes you are currently inside the 'DeepDriveMD-BEDE' folder
 MY_ROOT=$(realpath ../..)
 
