@@ -95,7 +95,7 @@ You must install the local source packages in "editable" mode (-e) for both comp
 
 A. For the OpenMM Environment:
 ```bash
-conda activate ddmd_openmm  #Full paths if this fails are likely of /nobackup/projects/<project_code>/<user_name>/sources/ppc64le/envs/<enviroment_name e.g. ddmd_openmm>
+conda activate /nobackup/projects/<project_code>/<user_name>/sources/ppc64le/envs/ddmd_openmm  #replace <project_code> and <user_name> with your own or adapt path if you installed the environments elsewhere in the previous step
 
 # Install dependencies
 cd ../molecules && pip install -e .
@@ -107,7 +107,7 @@ cd ../DeepDriveMD-BEDE && pip install -e .
 
 B. For the Keras Environment:
 ```bash
-conda activate ddmd_keras
+conda activate /nobackup/projects/<project_code>/<user_name>/sources/ppc64le/envs/ddmd_keras  #replace <project_code> and <user_name> with your own or adapt path if you installed the environments elsewhere
 
 # Install dependencies (Required for data structures)
 cd ../molecules && pip install -e .
