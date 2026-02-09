@@ -123,7 +123,7 @@ cd ../molecules && pip install -e .
 cd ../MD-tools && pip install -e .
 
 # Install Main Pipeline
-cd ../DeepDriveMD-BEDE && pip install -e .
+cd ../DeepDriveMD-BEDE && pip install --no-deps -e .
 ```
 
 ## 🛠 3. Code Patches
