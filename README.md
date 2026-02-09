@@ -133,7 +133,7 @@ We provide a test case in `bede_examples/` to verify that the hybrid environment
 ### Step 1: Configure the Example Scripts
 The example files contain a placeholder `USER_PROJECT_ROOT` that needs to be replaced with your actual installation path (e.g., `/nobackup/projects/<project_code>/<user_name>`).
 
-Run these commands to automatically configure the scripts for your user account:
+Run these commands to configure the scripts for your user account automatically:
 
 ```bash
 # 1. Get your current project root path (ideally, /nobackup/projects/<project_code>/<user_name>)
@@ -150,25 +150,25 @@ grep "experiment_directory" bede_examples/deepdrivemd_test.yaml
 # Should show: /nobackup/projects/<your_project>/<your_user>/... in the first instance
 ```
 
-Step 2: Submit the Test Job
+Step 2: Submit the Test Job\
 Once configured, submit the job to the GPU queue.
 
 ```bash
 sbatch /bede_examples/deepdrivemd_test.sh
 ```
 
-Step 3: Monitor Progress
-You can track the job's progress using the standard SLURM commands or by tailing the log file.
+Step 3: Monitor Progress\
+You can track the progress of the job using the standard SLURM commands (such as lqueue) or by tailing the log file.
 
 ```bash
 # Watch the log (Might take a while to start depending on how busy the cluster is)
-tail -f ddmd_run_*.err  # Ctrl + C to exit update
+tail -f ddmd_run_*.err  # Ctrl + C to exit
 ```
 
-If successful, you will see the pipeline transition through:
-1. Molecular Dynamics: OpenMM running on GPU.
-2. Aggregation: Combining trajectories.
-3. Machine Learning: Keras training a CVAE.
+If successful, you will see the pipeline transition through:\
+1. Molecular Dynamics: OpenMM running on GPU.\
+2. Aggregation: Combining trajectories.\
+3. Machine Learning: Keras training a CVAE.\
 4. Agent: Selecting outliers for the next round.
 
 ## 🚀 4. Execution
