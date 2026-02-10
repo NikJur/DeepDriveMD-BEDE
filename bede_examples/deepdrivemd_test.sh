@@ -81,8 +81,8 @@ conda activate $MD_ENV
 
 # Clean up any previous run data to ensure a fresh start
 # WARNING: This deletes the output directory defined in your YAML
-RUN_DIR="$PROJ_DIR/sources/DeepDriveMD-BEDE/data"
-OUTPUT_DIR="USER_PROJECT_ROOT/sources/DeepDriveMD-BEDE/bede_examples/output_test"
+RUN_DIR="$PROJ_DIR/DeepDriveMD-BEDE/data"
+OUTPUT_DIR="USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/output_test"
 rm -rf $OUTPUT_DIR
 
 echo "Job started at $(date)"
