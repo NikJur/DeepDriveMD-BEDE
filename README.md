@@ -154,7 +154,8 @@ Step 2: Submit the Test Job\
 Once configured, submit the job to the GPU queue.
 
 ```bash
-sbatch /bede_examples/deepdrivemd_test.sh
+cd ./bede_examples/
+sbatch ./deepdrivemd_test.sh
 ```
 
 Step 3: Monitor Progress\
