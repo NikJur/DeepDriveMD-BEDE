@@ -131,14 +131,14 @@ cd ../DeepDriveMD-BEDE && pip install --no-deps -e .
 We provide a test case in `bede_examples/` to verify that the hybrid environment switching and DeepDriveMD are working correctly.
 
 ### Step 1: Configure the Example Scripts
-The example files contain a placeholder `USER_PROJECT_ROOT` that needs to be replaced with your actual installation path (e.g., `/nobackup/projects/<project_code>/<user_name>`).
+The example files contain a placeholder `USER_PROJECT_ROOT` that needs to be replaced with your actual installation path (e.g., `/nobackup/projects/<project_code>/<user_name>/sources`).
 
 Run these commands to configure the scripts for your user account automatically:
 
 ```bash
-# 1. Get your current project root path (ideally, /nobackup/projects/<project_code>/<user_name>)
+# 1. Get your current project root path (ideally, /nobackup/projects/<project_code>/<user_name>/sources)
 # Note: This assumes you are currently inside the 'DeepDriveMD-BEDE' folder
-MY_ROOT=$(realpath ../..)
+MY_ROOT=$(realpath ..)
 
 # 2. Inject this path into the Config, Wrapper, and Launcher scripts
 sed -i "s|USER_PROJECT_ROOT_test|${MY_ROOT}|g" bede_examples/run_stage.sh
