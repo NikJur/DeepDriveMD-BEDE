@@ -23,7 +23,7 @@ ENV_OPENMM="${USER_PROJECT_ROOT}/ppc64le/envs/ddmd_openmm"
 ENV_KERAS="${USER_PROJECT_ROOT}/ppc64le/envs/ddmd_keras"
 
 # Path to the source code (this repository)
-SOURCE_DIR="${USER_PROJECT_ROOT}/DeepDriveMD-BEDE"
+SOURCE_DIR="${USER_PROJECT_ROOT}/DeepDriveMD-BEDE/bede_examples"
 # =========================================
 
 # DEBUG: Log start time
