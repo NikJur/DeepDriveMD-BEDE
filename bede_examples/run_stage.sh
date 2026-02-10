@@ -124,7 +124,8 @@ else
     fi
 fi
 
-# 5. Execute Task
-echo "----------------------------------------------------------------"
-echo "STARTING TASK: $@"
-"$@"
+# 5. Execute Task and Log
+LOG_FILE="${SOURCE_DIR}/task_error.log"
+echo "----------------------------------------------------------------" >> $LOG_FILE
+echo "STARTING TASK: $@" >> $LOG_FILE
+"$@" >> $LOG_FILE 2>&1
