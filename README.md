@@ -155,6 +155,9 @@ Once configured, submit the job to the GPU queue.
 
 ```bash
 cd ./bede_examples/
+#Make the run_stage script (required) executable
+chmod +x run_stage.sh
+#Submit the job
 sbatch ./deepdrivemd_test.sh
 ```
 
