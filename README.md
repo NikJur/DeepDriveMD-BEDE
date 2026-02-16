@@ -97,7 +97,7 @@ conda env create \
 cd ../DeepDriveMD-BEDE
 ```
 
-Step 2: Install Local Source Code
+Step 2: Install Local Source Code\
 You must install the local source packages in "editable" mode (-e) for both compute environments.
 
 A. For the OpenMM Environment:
