@@ -187,12 +187,12 @@ Activates ddmd_keras for training/agents.
 Injects the current source directory into PYTHONPATH.
 
 Running a Job
-Modify bede_examples/deepdrivemd_v0_7.sh with your project code.
+Modify bede_examples/deepdrivemd_test.sh with your project code.
 
 Submit via SLURM:
 
 ```bash
-sbatch bede_examples/deepdrivemd_v0_7.sh
+sbatch bede_examples/deepdrivemd_test.sh
 ```
 
 ## 🛠 5. Code Patches
