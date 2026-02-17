@@ -152,6 +152,10 @@ sed -i "s|USER_PROJECT_ROOT|${MY_ROOT}|g" bede_examples/deepdrivemd_test.yaml
 # 3. Verify the change (Optional)
 grep "experiment_directory" bede_examples/deepdrivemd_test.yaml
 # Should show: /nobackup/projects/<your_project>/<your_user>/... in the first instance
+
+# 4. Change the project account name to bill job submission to
+# IMPORTANT: Replace <you_project_code> with your actual project code in the line below before running the command!!
+sed -i "s|ACCOUNT_PROJECT_CODE|<your_project_code>|g" bede_examples/deepdrivemd_test.yaml
 ```
 
 Step 2: Submit the Test Job\
