@@ -64,7 +64,8 @@ sources/
 │       ├── deepdrivemd_test.yaml
 │       └── deepdrivemd_test.sh
 ├── molecules/              # Required dependency
-└── MD-tools/               # Required dependency
+├── MD-tools/               # Required dependency
+└── ppc64le/               # Conda installation and later environments
 ```
 
 ## 🐍 2. Environment Setup
