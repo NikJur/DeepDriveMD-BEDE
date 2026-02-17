@@ -2,7 +2,7 @@ title: "RbsB_2DRI_test"
 resource: local.localhost
 queue: gpu
 schema_: local
-project: bddur53
+project: ACCOUNT_PROJECT_CODE
 walltime_min: 45
 max_iteration: 2
 cpus_per_node: 30
