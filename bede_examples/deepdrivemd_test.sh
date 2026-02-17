@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --account=bddur53
+#SBATCH --account=ACCOUNT_PROJECT_CODE
 #SBATCH --job-name=ddmd_test
 #SBATCH --time=02:00:00
 #SBATCH --partition=gpu
