@@ -176,7 +176,7 @@ You can track the progress of the job using the standard SLURM commands (such as
 
 ```bash
 # Watch the log (Might take a while to start depending on how busy the cluster is)
-tail -f ddmd_run_*.err  # Ctrl + C to exit
+tail -f ddmd_log_*.err  # Ctrl + C to exit
 ```
 
 If successful, you will see the pipeline transition through:\
