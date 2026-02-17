@@ -157,6 +157,7 @@ grep "experiment_directory" bede_examples/deepdrivemd_test.yaml
 # 4. Change the project account name to bill job submission to
 # IMPORTANT: Replace <you_project_code> with your actual project code in the line below before running the command!!
 sed -i "s|ACCOUNT_PROJECT_CODE|<your_project_code>|g" bede_examples/deepdrivemd_test.yaml
+sed -i "s|ACCOUNT_PROJECT_CODE|<your_project_code>|g" bede_examples/deepdrivemd_test.sh
 ```
 
 Step 2: Submit the Test Job\
