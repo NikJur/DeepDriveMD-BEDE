@@ -97,8 +97,8 @@ conda env create \
 cd ../DeepDriveMD-BEDE
 ```
 
-Step 2: Install Local Source Code\
-You must install the local source packages in "editable" mode (-e) for both compute environments.
+Step 2: Install Local Source Code & Apply Patches\
+You must install the local source packages in "editable" mode (-e) and apply a critical patch to MD-tools to resolve OpenMM unit conflicts on PowerPC.
 
 A. For the OpenMM Environment:
 ```bash
@@ -108,6 +108,10 @@ conda activate /nobackup/projects/<project_code>/<user_name>/sources/ppc64le/env
 export SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
 cd ../molecules && pip install -e .
 cd ../MD-tools && pip install -e .
+
+# Apply Patch to MD-Tools (Fixes OpenMM on PowerPC)
+# Run the patch script provided in the repo
+python ../DeepDriveMD-BEDE/bede_env_setup/patch_mdtools.py
 
 # Install Main Pipeline
 cd ../DeepDriveMD-BEDE && pip install -e .
@@ -215,3 +219,8 @@ Patch: Added modulo arithmetic to write_pdb to wrap the index safely (frame = fr
 
 3. Fix Logging Crash (deepdrivemd/models/keras_cvae/model.py)
 Patch: Changed logs["loss"] to logs.get("loss", 0.0) to prevent crashes on missing metrics.
+
+4. Fix OpenMM Unit Type Error (MD-tools/mdtools/openmm/sim.py)
+Resolved a TypeError where OpenMM's C++ engine rejected simtk.unit objects due to a version mismatch on PowerPC.
+
+Patch: Injected a _strip helper function to cast Unit objects (e.g., 310 K) to raw floats (310.0) before passing them to LangevinIntegrator and setVelocitiesToTemperature. This is handled automatically by the installation steps above.
