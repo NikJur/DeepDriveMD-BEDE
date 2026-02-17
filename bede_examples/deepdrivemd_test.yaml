@@ -40,7 +40,7 @@ molecular_dynamics_stage:
         task_idx: 0
         output_path: set_by_deepdrivemd
         node_local_path: set_by_deepdrivemd
-        initial_pdb_dir: USER_PROJECT_ROOT/DeepDriveMd-BEDE/bede_examples/data
+        initial_pdb_dir: "USER_PROJECT_ROOT/DeepDriveMd-BEDE/bede_examples/data"
         pdb_file: "comp.pdb"
 
         # Add the reference PDB (same as the input PDB for this test)
