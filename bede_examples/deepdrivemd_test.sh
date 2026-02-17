@@ -8,7 +8,6 @@
 #SBATCH --output=ddmd_log_test%j.out
 #SBATCH --error=ddmd_log_test%j.err
 #SBATCH --mail-type=END
-#SBATCH --mail-user=nikolai.juraschko@rfi.ac.uk
 
 # --- Configuration ---
 export PROJ_DIR="USER_PROJECT_ROOT"
