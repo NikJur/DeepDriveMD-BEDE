@@ -92,7 +92,7 @@ cd $RUN_DIR
 
 # Launch DeepDriveMD
 # Ensure you are using the corrected YAML file (deepdrivemd_test.yaml)
-python -m deepdrivemd.deepdrivemd -c deepdrivemd_test.yaml
+python -m deepdrivemd.deepdrivemd -c ${PROJ_DIR}/DeepDriveMD-BEDE/bede_examples/deepdrivemd_test.yaml
 
 # --- 4. Cleanup ---
 echo "--- Cleanup ---"
