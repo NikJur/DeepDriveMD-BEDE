@@ -72,7 +72,7 @@ sources/
 We use pre-configured YAML files located in DeepDriveMD-BEDE/bede_env_setup/ to create the three required environments.
 
 Step 1: Create the Environments
-Run the following commands from within the sources/DeepDriveMD-BEDE directory:
+Run the following commands from within the sources/ppc64le directory:
 
 ```bash
 
