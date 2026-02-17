@@ -57,7 +57,7 @@ Ensure your source directory is organised as follows before proceeding:
 ```text
 sources/
 ├── DeepDriveMD-BEDE/       # This repository
-│   ├── bede_env_setup/     # Contains the .yml environment files
+│   ├── bede_env_setup/     # Contains the .yml environment files and necessary patches
 │   └── bede_examples/      # Contains example run files
 │       ├── data/
 │       ├── run_stage.sh
