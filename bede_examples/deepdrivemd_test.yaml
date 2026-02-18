@@ -2,7 +2,7 @@ title: "RbsB_2DRI_test"
 resource: local.localhost
 queue: gpu
 schema_: local
-project: bddur53
+project: ACCOUNT_PROJECT_CODE
 walltime_min: 45
 max_iteration: 2
 cpus_per_node: 30
@@ -13,7 +13,7 @@ hardware_threads_per_cpu: 4
 # PATH CONFIGURATION
 # -------------------------------------------------------------------------
 # CHANGE <project_code> and <user_name> in this script
-experiment_directory: "USER_PROJECT_ROOT/sources/DeepDriveMD-BEDE/bede_examples/output_test"
+experiment_directory: "USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/output_test"
 node_local_path: null
 
 # -------------------------------------------------------------------------
@@ -21,7 +21,7 @@ node_local_path: null
 # -------------------------------------------------------------------------
 molecular_dynamics_stage:
     pre_exec: []
-    executable: 'USER_PROJECT_ROOT/sources/DeepDriveMd-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.sim.openmm.run_openmm'
+    executable: 'USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.sim.openmm.run_openmm'
     arguments: []
     cpu_reqs:
         processes: 1
@@ -40,11 +40,11 @@ molecular_dynamics_stage:
         task_idx: 0
         output_path: set_by_deepdrivemd
         node_local_path: set_by_deepdrivemd
-        initial_pdb_dir: USER_PROJECT_ROOT/sources/data
+        initial_pdb_dir: "USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/data"
         pdb_file: "comp.pdb"
 
         # Add the reference PDB (same as the input PDB for this test)
-        reference_pdb_file: "USER_PROJECT_ROOT/sources/DeepDriveMd-BEDE/bede_examples/data/sys1/comp.pdb"
+        reference_pdb_file: "USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/data/sys1/comp.pdb"
         
         # EXPLICIT PARAMETERS TO FIX UNIT ERROR:
         temperature_kelvin: 310.0
@@ -61,7 +61,7 @@ molecular_dynamics_stage:
 # -------------------------------------------------------------------------
 aggregation_stage:
     pre_exec: []
-    executable: 'USER_PROJECT_ROOT/sources/DeepDriveMd-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.aggregation.basic.aggregate'
+    executable: 'USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.aggregation.basic.aggregate'
     arguments: []
     cpu_reqs:
         processes: 1
@@ -88,7 +88,7 @@ aggregation_stage:
 machine_learning_stage:
     pre_exec: []
     # Pointing to CVAE train script
-    executable: 'USER_PROJECT_ROOT/sources/DeepDriveMd-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.models.keras_cvae.train'
+    executable: 'USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.models.keras_cvae.train'
     arguments: []
     cpu_reqs:
         processes: 1
@@ -118,7 +118,7 @@ machine_learning_stage:
 # -------------------------------------------------------------------------
 model_selection_stage:
     pre_exec: []
-    executable: 'USER_PROJECT_ROOT/sources/DeepDriveMd-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.selection.latest.select_model'
+    executable: 'USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.selection.latest.select_model'
     arguments: []
     cpu_reqs:
         processes: 1
@@ -142,7 +142,7 @@ model_selection_stage:
 # -------------------------------------------------------------------------
 agent_stage:
     pre_exec: []
-    executable: 'USER_PROJECT_ROOT/sources/DeepDriveMd-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.agents.lof.lof'
+    executable: 'USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/run_stage.sh python -m deepdrivemd.agents.lof.lof'
     arguments: []
     cpu_reqs:
         processes: 1

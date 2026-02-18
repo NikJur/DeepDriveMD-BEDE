@@ -11,8 +11,8 @@
 # ------------------------------------------------------------------------------
 
 # === CONFIGURATION: UPDATE THESE PATHS ===
-# The base directory where your 'sources'
-#USER_PROJECT_ROOT="/nobackup/projects/<project_code>/<user_name>"
+# The base directory in your 'sources'
+#USER_PROJECT_ROOT="/nobackup/projects/<project_code>/<user_name>/sources"
 USER_PROJECT_ROOT="USER_PROJECT_ROOT_test"
 
 # Path to the Miniforge/Miniconda installation
@@ -23,7 +23,7 @@ ENV_OPENMM="${USER_PROJECT_ROOT}/ppc64le/envs/ddmd_openmm"
 ENV_KERAS="${USER_PROJECT_ROOT}/ppc64le/envs/ddmd_keras"
 
 # Path to the source code (this repository)
-SOURCE_DIR="${USER_PROJECT_ROOT}/sources/DeepDriveMD-BEDE"
+SOURCE_DIR="${USER_PROJECT_ROOT}/DeepDriveMD-BEDE/bede_examples"
 # =========================================
 
 # DEBUG: Log start time
@@ -70,7 +70,7 @@ if [[ "$@" == *"openmm"* ]] || [[ "$@" == *"aggregation"* ]]; then
                 echo "report_interval_ps: 5.0" >> $arg
                 echo "solvent_type: 'implicit'" >> $arg
                 # NOTE: Ensure this reference PDB path is correct!
-                echo "reference_pdb_file: '${USER_PROJECT_ROOT}/sources/DeepDriveMD-BEDE/bede_examples/data/sys1/comp.pdb'" >> $arg
+                echo "reference_pdb_file: '${USER_PROJECT_ROOT}/DeepDriveMD-BEDE/bede_examples/data/sys1/comp.pdb'" >> $arg
                 echo "fraction_of_contacts: 0.0" >> $arg
             fi
         done
@@ -124,7 +124,8 @@ else
     fi
 fi
 
-# 5. Execute Task
-echo "----------------------------------------------------------------"
-echo "STARTING TASK: $@"
-"$@"
+# 5. Execute Task and Log
+LOG_FILE="${SOURCE_DIR}/task_error.log"
+echo "----------------------------------------------------------------" >> $LOG_FILE
+echo "STARTING TASK: $@" >> $LOG_FILE
+"$@" >> $LOG_FILE 2>&1

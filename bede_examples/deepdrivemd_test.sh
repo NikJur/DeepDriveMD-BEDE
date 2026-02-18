@@ -1,14 +1,13 @@
 #!/bin/bash
-#SBATCH --account=bddur53
+#SBATCH --account=ACCOUNT_PROJECT_CODE
 #SBATCH --job-name=ddmd_test
-#SBATCH --time=02:00:00
+#SBATCH --time=00:30:00
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:2
 #SBATCH --output=ddmd_log_test%j.out
 #SBATCH --error=ddmd_log_test%j.err
 #SBATCH --mail-type=END
-#SBATCH --mail-user=nikolai.juraschko@rfi.ac.uk
 
 # --- Configuration ---
 export PROJ_DIR="USER_PROJECT_ROOT"
@@ -81,8 +80,8 @@ conda activate $MD_ENV
 
 # Clean up any previous run data to ensure a fresh start
 # WARNING: This deletes the output directory defined in your YAML
-RUN_DIR="$PROJ_DIR/sources/DeepDriveMD-BEDE/data"
-OUTPUT_DIR="USER_PROJECT_ROOT/sources/DeepDriveMD-BEDE/bede_examples/output_test"
+RUN_DIR="$PROJ_DIR/DeepDriveMD-BEDE/data"
+OUTPUT_DIR="USER_PROJECT_ROOT/DeepDriveMD-BEDE/bede_examples/output_test"
 rm -rf $OUTPUT_DIR
 
 echo "Job started at $(date)"
@@ -93,7 +92,7 @@ cd $RUN_DIR
 
 # Launch DeepDriveMD
 # Ensure you are using the corrected YAML file (deepdrivemd_test.yaml)
-python -m deepdrivemd.deepdrivemd -c deepdrivemd_test.yaml
+python -m deepdrivemd.deepdrivemd -c ${PROJ_DIR}/DeepDriveMD-BEDE/bede_examples/deepdrivemd_test.yaml
 
 # --- 4. Cleanup ---
 echo "--- Cleanup ---"

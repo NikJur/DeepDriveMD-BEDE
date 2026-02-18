@@ -1,4 +1,4 @@
-name: /nobackup/projects/bddur53/nikjur/ppc64le/envs/infra_tools
+name: infra_tools
 channels:
   - rapidsai
   - nvidia

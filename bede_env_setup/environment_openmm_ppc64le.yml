@@ -1,5 +1,6 @@
-name: /nobackup/projects/bddur53/nikjur/ppc64le/envs/ddmd_openmm
+name: ddmd_openmm
 channels:
+  - https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
   - rapidsai
   - nvidia
   - conda-forge
@@ -89,7 +90,6 @@ dependencies:
       - matplotlib==3.5.3
       - mccabe==0.7.0
       - mdanalysis==2.1.0
-      - mdtools==0.1
       - mmtf-python==1.1.3
       - mrcfile==1.5.4
       - msgpack==1.0.5
