@@ -1,4 +1,4 @@
-# DeepDriveMD on Bede (IBM PowerPC ppc64le)
+# DeepDriveMD on Bede (Tesla V100s and IBM POWER9 CPUs with NVLink 2.0 | ppc64le)
 
 This documentation details the setup required to run DeepDriveMD on the **Bede Supercomputer** (IBM PowerAC922, NVIDIA V100, PowerPC `ppc64le`).
 
