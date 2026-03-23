@@ -1,4 +1,4 @@
-# DeepDriveMD on Bede (Tesla V100s and IBM POWER9 CPUs with NVLink 2.0 | ppc64le)
+# DeepDriveMD on Bede (NVIDIA Tesla V100s and IBM POWER9 CPUs with NVLink 2.0 | ppc64le)
 See https://github.com/KhalidLab/deepdrive_we-BEDE to install DDMD on Bede NVIDIA Grace Hoppers.
 
 This documentation details the setup required to run DeepDriveMD on the **Bede Supercomputer** (IBM PowerAC922, Tesla V100, PowerPC `ppc64le`).
