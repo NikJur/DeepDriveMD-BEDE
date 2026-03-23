@@ -1,6 +1,7 @@
 # DeepDriveMD on Bede (Tesla V100s and IBM POWER9 CPUs with NVLink 2.0 | ppc64le)
+See https://github.com/KhalidLab/deepdrive_we-BEDE to install DDMD on Bede NVIDIA Grace Hoppers.
 
-This documentation details the setup required to run DeepDriveMD on the **Bede Supercomputer** (IBM PowerAC922, NVIDIA V100, PowerPC `ppc64le`).
+This documentation details the setup required to run DeepDriveMD on the **Bede Supercomputer** (IBM PowerAC922, Tesla V100, PowerPC `ppc64le`).
 
 We solve the PowerPC dependency conflicts (TensorFlow vs PyTorch) using a **Hybrid Runtime** strategy with two separate compute environments hot-swapped at runtime.
 
