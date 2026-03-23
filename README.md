@@ -68,7 +68,7 @@ sources/
 └── ppc64le/               # Conda installation and later environments
 ```
 
-## 🐍 2. Environment Setup
+## 2. Environment Setup
 We use pre-configured YAML files located in DeepDriveMD-BEDE/bede_env_setup/ to create the three required environments.
 
 Step 1: Create the Environments
@@ -131,7 +131,7 @@ cd ../MD-tools && pip install -e .
 cd ../DeepDriveMD-BEDE && pip install --no-deps -e .
 ```
 
-## 🧪 3. Test Your Installation
+## 3. Test Your Installation
 
 We provide a test case in `bede_examples/` to verify that the hybrid environment switching and DeepDriveMD are working correctly.
 
@@ -185,7 +185,7 @@ If successful, you will see the pipeline transition through:\
 3. Machine Learning: Keras training a CVAE.\
 4. Agent: Selecting outliers for the next round.
 
-## 🚀 4. Execution
+## 4. Execution
 We use a wrapper script to hot-swap environments based on the task type.
 
 The Wrapper Script (bede_examples/run_stage.sh)
